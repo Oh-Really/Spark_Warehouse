@@ -173,7 +173,7 @@ on se.artist = ss.artist_name and page = 'NextSong'
 
 user_table_insert = ("""
 insert into users(user_id, first_name, last_name, gender, level)
-select distinct userId               as user_id
+select distinct userId               as user_id,
                 firstName            as first_name,
                 lastName             as last_name,
                 gender               as gender,
@@ -198,8 +198,8 @@ insert into artists(artist_id, name, location, latitude, longitude)
 select distinct artist_id        as artist_id,
                 artist_name      as name,
                 artist_location  as location,
-                artist_latitude  as latitude,
-                artist_longitude as longitude
+                cast(artist_latitude as DOUBLE PRECISION) as latitude,
+                cast(artist_longitude as DOUBLE PRECISION) as longitude
 from staging_songs
 where artist_id IS NOT NULL
 """)
